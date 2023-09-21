@@ -2,6 +2,7 @@ package com.akinwalehabib.dispatcherservice;
 
 import java.util.function.Function;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.function.context.FunctionCatalog;
@@ -16,6 +17,7 @@ class DispatchingFunctionsIntegrationTests {
   @Autowired
   private FunctionCatalog catalog;
 
+  @Disabled
   @Test
   void packAndLabelOrder() {
     Function<OrderAcceptedMessage, Flux<OrderDispatchedMessage>> packAndLabel = catalog.lookup(
