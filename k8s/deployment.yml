@@ -12,18 +12,22 @@ spec:
     metadata:
       labels:
         app: dispatcher-service
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /actuator/prometheus
+      prometheus.io/port: "9003"
     spec:
       containers:
       - name: dispatcher-service
         image: dispatcher-service
         imagePullPolicy: IfNotPresent
         resources:
-            requests:
-              cpu: 100m
-              memory: 60Mi
-            limits:
-              cpu: 200m
-              memory: 120Mi
+          requests:
+            cpu: 100m
+            memory: 60Mi
+          limits:
+            cpu: 200m
+            memory: 120Mi
         lifecycle:
             preStop:
               exec:
@@ -35,3 +39,15 @@ spec:
             value: http://config-service
           - name: SPRING_RABBITMQ_HOST
             value: polar-rabbitmq
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8888
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8888
+          initialDelaySeconds: 5
+          periodSeconds: 15

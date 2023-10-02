@@ -17,6 +17,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2021.0.8")
+	set('otelVersion',"1.17.0")
 }
 
 dependencies {
@@ -35,6 +36,9 @@ dependencies {
 				classifier = "test-binder"
 			}
 	}
+
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
 }
 
 dependencyManagement {

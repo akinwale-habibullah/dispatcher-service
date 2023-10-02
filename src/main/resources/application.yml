@@ -1,6 +1,10 @@
 server:
   port: 9003
 
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
 spring:
   application:
     name: dispatcher-service
@@ -37,10 +41,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh,health
+        include: health, metrics, prometheus
   endpoint:
     health:
       show-details: always
       show-components: always
       probes:
         enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
