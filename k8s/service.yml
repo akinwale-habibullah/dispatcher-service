@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: dispatcher-service
   labels:
-    app: catalog-service
+    app: dispatcher-service
 spec:
   type: ClusterIP
   selector:
-    app: myapp
+    app: dipatcher-service
   ports:
   - protocol: TCP
     port: 80
