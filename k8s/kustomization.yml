@@ -6,7 +6,7 @@ resources:
   - service.yml
 
 configMapGenerator:
-  - name: dispatcher-service
+  - name: dispatcher-config
     files:
       - application.yml
     options:
